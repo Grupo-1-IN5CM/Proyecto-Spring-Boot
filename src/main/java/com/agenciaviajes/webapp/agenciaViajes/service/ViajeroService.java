@@ -15,7 +15,7 @@ public class ViajeroService implements IViajeroService{
     ViajeroRepository viajeroRepository;
 
     @Override
-    public List<Viajero> listarClientes() {
+    public List<Viajero> listarViajeros() {
        return  viajeroRepository.findAll();
     }
 

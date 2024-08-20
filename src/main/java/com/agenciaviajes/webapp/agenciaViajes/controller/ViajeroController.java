@@ -6,95 +6,87 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.agenciaviajes.webapp.agenciaViajes.model.Viajero;
 import com.agenciaviajes.webapp.agenciaViajes.service.IViajeroService;
 
+@Controller
 @RestController
-@RequestMapping("/viajeros")
+@RequestMapping("viajero")
 public class ViajeroController {
 
     @Autowired
     private IViajeroService viajeroService;
 
-    // Listar
+    //Listar
     @GetMapping("/")
-    public List<Viajero> listarViajeros() {
+    public List<Viajero> listaViajeros(){
         return viajeroService.listarViajeros();
     }
 
-    // Buscar
+    //Buscar
     @GetMapping("/id={id}")
-    public ResponseEntity<Viajero> buscarViajeroPorId(@PathVariable Long id) {
-        Viajero viajero = viajeroService.buscarViajeroPorId(id);
-        if (viajero != null) {
+    public ResponseEntity<Viajero> buscarViajeroPorId(@PathVariable Long id){
+        try {
+            Viajero viajero = viajeroService.buscarViajeroPorId(id);
             return ResponseEntity.ok(viajero);
-        } else {
-            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
-    // Agregar
+    //Agregar
     @PostMapping("/")
-    public ResponseEntity<Map<String, String>> agregarViajero(@RequestBody Viajero viajero) {
+    public ResponseEntity<Map<String, String>> agregarViajero(@RequestBody Viajero viajero){
         Map<String, String> response = new HashMap<>();
-        try {
+        try{
             viajeroService.guardarViajero(viajero);
-            response.put("message", "Viajero agregado con éxito");
+            response.put("message: ", "Viajero agregado con exito");
+            return ResponseEntity.ok(response);
+        }catch(Exception e){
+            response.put("message: ", "Error");
+            response.put("err", "No se ha podido agregar el Viajero");
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    //Editar
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, String>> editarEmpleado(@PathVariable Long id, @RequestBody Viajero viajeroNuevo){
+        Map<String, String> response = new HashMap<>();
+        
+        try {
+            Viajero viajero = viajeroService.buscarViajeroPorId(id);    
+            viajero.setNombre(viajeroNuevo.getNombre());
+            viajero.setApellido(viajeroNuevo.getApellido());
+            viajero.setCorreo(viajeroNuevo.getTelefono());
+            viajero.setTelefono(viajeroNuevo.getTelefono());
+            viajero.setFechaRegistro(viajeroNuevo.getFechaRegistro());
+            viajero.setItinerario(viajeroNuevo.getItinerario());
+            viajeroService.guardarViajero(viajero);
+            response.put("message", "El viajero se ha modificado con exito");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("message", "Error");
-            response.put("error", "Hubo un error al intentar agregar el viajero");
+            response.put("err", "Hubo un error al intentar modificar al viajero");
             return ResponseEntity.badRequest().body(response);
         }
     }
 
-    // Editar
-    @PutMapping("/{id}")
-    public ResponseEntity<Map<String, String>> editarViajero(@PathVariable Long id, @RequestBody Viajero viajeroNuevo) {
-        Map<String, String> response = new HashMap<>();
-        try {
-            Viajero viajeroExistente = viajeroService.buscarViajeroPorId(id);
-            if (viajeroExistente != null) {
-                viajeroExistente.setNombre(viajeroNuevo.getNombre());
-                viajeroExistente.setApellido(viajeroNuevo.getApellido());
-                viajeroExistente.setCorreo(viajeroNuevo.getCorreo());
-                viajeroExistente.setTelefono(viajeroNuevo.getTelefono());
-                viajeroExistente.setFechaRegistro(viajeroNuevo.getFechaRegistro());
-                viajeroService.guardarViajero(viajeroExistente);
-                response.put("message", "El Viajero se ha modificado con éxito");
-                return ResponseEntity.ok(response);
-            } else {
-                response.put("message", "Error");
-                response.put("error", "Viajero no encontrado");
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            response.put("message", "Error");
-            response.put("error", "Hubo un error al intentar modificar el viajero");
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
-
-    // Eliminar
+    //Eliminar
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> eliminarViajero(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> eliminarEmpleado(@PathVariable Long id){
         Map<String, String> response = new HashMap<>();
         try {
             Viajero viajero = viajeroService.buscarViajeroPorId(id);
-            if (viajero != null) {
-                viajeroService.eliminarViajero(id);
-                response.put("message", "El viajero se ha eliminado");
-                return ResponseEntity.ok(response);
-            } else {
-                response.put("message", "Error");
-                response.put("error", "Viajero no encontrado");
-                return ResponseEntity.notFound().build();
-            }
+            viajeroService.eliminarViajero(viajero);
+            response.put("message", "El viajero se ha eliminado con exito");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("message", "Error");
-            response.put("error", "El viajero no se ha eliminado");
+            response.put("err", "El viajero no se ha podido eliminar");
             return ResponseEntity.badRequest().body(response);
         }
     }

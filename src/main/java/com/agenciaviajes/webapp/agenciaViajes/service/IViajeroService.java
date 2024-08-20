@@ -5,7 +5,7 @@ import java.util.List;
 import com.agenciaviajes.webapp.agenciaViajes.model.Viajero;
 
 public interface IViajeroService {
-    public List<Viajero> listarClientes();
+    public List<Viajero> listarViajeros();
 
     public void guardarViajero(Viajero viajero);
 

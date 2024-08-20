@@ -12,86 +12,77 @@ import com.agenciaviajes.webapp.agenciaViajes.model.Itinerario;
 import com.agenciaviajes.webapp.agenciaViajes.service.IItinerarioService;
 
 @RestController
-@RequestMapping("/itinerarios")
+@RequestMapping("itinerarios")
 public class ItinerarioController {
 
     @Autowired
     private IItinerarioService itinerarioService;
 
-    // Listar
+    //Listar
     @GetMapping("/")
-    public List<Itinerario> listarItinerarios() {
-        return itinerarioService.listarItinerarios();
+    public List<Itinerario> listaItinerarios(){
+        return itinerarioService.listarItinerario();
     }
 
-    // Buscar
+    //Buscar
     @GetMapping("/id={id}")
-    public ResponseEntity<Itinerario> buscarItinerarioPorId(@PathVariable Long id) {
-        Itinerario itinerario = itinerarioService.buscarItinerarioPorId(id);
-        if (itinerario != null) {
+    public ResponseEntity<Itinerario> buscarItinerario(@PathVariable Long id){
+        try {
+            Itinerario itinerario = itinerarioService.buscarItinerarioPorId(id);
             return ResponseEntity.ok(itinerario);
-        } else {
-            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
-    // Agregar
+    //Agregar
     @PostMapping("/")
-    public ResponseEntity<Map<String, String>> agregarItinerario(@RequestBody Itinerario itinerario) {
+    public ResponseEntity<Map<String, String>> agregarItinerario(@RequestBody Itinerario itinerario){
         Map<String, String> response = new HashMap<>();
-        try {
+        try{
             itinerarioService.guardarItinerario(itinerario);
-            response.put("message", "Itinerario agregado con éxito");
+            response.put("message: ", "Viajero agregado con exito");
+            return ResponseEntity.ok(response);
+        }catch(Exception e){
+            response.put("message: ", "Error");
+            response.put("err", "No se ha podido agregar el Viajero");
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    //Editar
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, String>> editarItinerario(@PathVariable Long id, @RequestBody Itinerario itinerarioNuevo){
+        Map<String, String> response = new HashMap<>();
+        
+        try {
+            Itinerario itinerario = itinerarioService.buscarItinerarioPorId(id);    
+            itinerario.setFecha(itinerarioNuevo.getFecha());
+            itinerario.setHora(itinerarioNuevo.getHora());
+            itinerario.setRuta(itinerarioNuevo.getRuta());
+            itinerario.setParada(itinerarioNuevo.getParada());
+            itinerarioService.guardarItinerario(itinerario);
+            response.put("message", "El viajero se ha modificado con exito");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("message", "Error");
-            response.put("error", "Hubo un error al intentar agregar el itinerario");
+            response.put("err", "Hubo un error al intentar modificar al viajero");
             return ResponseEntity.badRequest().body(response);
         }
     }
 
-    // Editar
-    @PutMapping("/{id}")
-    public ResponseEntity<Map<String, String>> editarItinerario(@PathVariable Long id, @RequestBody Itinerario itinerarioNuevo) {
-        Map<String, String> response = new HashMap<>();
-        try {
-            Itinerario itinerarioExistente = itinerarioService.buscarItinerarioPorId(id);
-            if (itinerarioExistente != null) {
-                itinerarioExistente.setFecha(itinerarioNuevo.getFecha());
-                itinerarioExistente.setHora(itinerarioNuevo.getHora());
-                itinerarioService.guardarItinerario(itinerarioExistente);
-                response.put("message", "El Itinerario se ha modificado con éxito");
-                return ResponseEntity.ok(response);
-            } else {
-                response.put("message", "Error");
-                response.put("error", "Itinerario no encontrado");
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            response.put("message", "Error");
-            response.put("error", "Hubo un error al intentar modificar el itinerario");
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
-
-    // Eliminar
+    //Eliminar
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> eliminarItinerario(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> eliminarItinerario(@PathVariable Long id){
         Map<String, String> response = new HashMap<>();
         try {
             Itinerario itinerario = itinerarioService.buscarItinerarioPorId(id);
-            if (itinerario != null) {
-                itinerarioService.eliminarItinerario(id);
-                response.put("message", "El itinerario se ha eliminado");
-                return ResponseEntity.ok(response);
-            } else {
-                response.put("message", "Error");
-                response.put("error", "Itinerario no encontrado");
-                return ResponseEntity.notFound().build();
-            }
+            itinerarioService.eliminarItinerario(itinerario);
+            response.put("message", "El viajero se ha eliminado con exito");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("message", "Error");
-            response.put("error", "El itinerario no se ha eliminado");
+            response.put("err", "El viajero no se ha podido eliminar");
             return ResponseEntity.badRequest().body(response);
         }
     }

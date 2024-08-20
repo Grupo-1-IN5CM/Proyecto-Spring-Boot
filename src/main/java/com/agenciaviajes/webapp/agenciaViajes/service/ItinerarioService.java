@@ -13,13 +13,13 @@ public class ItinerarioService implements IItinerarioService {
     private ItinerarioRepository itinerarioRepository;
 
     @Override
-    public List<Itinerario> listarItinerarios() {
-        return itinerarioRepository.findAll();
+    public List<Itinerario> listarItinerario() {
+       return itinerarioRepository.findAll();
     }
 
     @Override
     public void guardarItinerario(Itinerario itinerario) {
-        itinerarioRepository.save(itinerario);
+       itinerarioRepository.save(itinerario);
     }
 
     @Override
@@ -28,8 +28,10 @@ public class ItinerarioService implements IItinerarioService {
     }
 
     @Override
-    public void eliminarItinerario(Long id) {
-        itinerarioRepository.deleteById(id);
+    public void eliminarItinerario(Itinerario itinerario) {
+        itinerarioRepository.delete(itinerario);
     }
+
+    
 }
 
