@@ -74,6 +74,7 @@ public class VehiculoController {
             vehiculo.setModelo(vehiculoNuevo.getModelo());
             vehiculo.setTipoVehiculo(vehiculoNuevo.getTipoVehiculo());
             vehiculo.setCapacidad(vehiculoNuevo.getCapacidad());
+            vehiculo.setDisponibilidad(vehiculoNuevo.getDisponibilidad());
             vehiculoService.guardarVehiculo(vehiculo);
             response.put("message","Vehiculo fue modificado ");
             return ResponseEntity.ok(response);

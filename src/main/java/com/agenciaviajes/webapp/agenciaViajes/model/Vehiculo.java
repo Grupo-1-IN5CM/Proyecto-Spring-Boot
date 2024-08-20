@@ -17,4 +17,5 @@ public class Vehiculo {
     private String Modelo;
     private Time TipoVehiculo;
     private String Capacidad;
+    private Boolean Disponibilidad;
 }

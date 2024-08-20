@@ -23,9 +23,11 @@ import com.agenciaviajes.webapp.agenciaViajes.service.RutaService;
 @RestController
 @RequestMapping("ruta")
 public class RutaController {
+    
     @Autowired
     RutaService rutaService;
-    //listar
+
+    //Listar
     @GetMapping("/")
     public ResponseEntity<List<Ruta>> listarRuta(){
        try {
@@ -35,8 +37,8 @@ public class RutaController {
        }
     } 
 
-    // buscar
-    @GetMapping("/{id}")
+    //Buscar
+    @GetMapping("/id={id}")
     public ResponseEntity<Ruta> busRutaPorId(@PathVariable Long id){
         try{
             Ruta ruta = rutaService.busRutaPorId(id);
@@ -47,22 +49,22 @@ public class RutaController {
         }
     }
 
-    //agregar
+    //Agregar
     @PostMapping("/")
     public ResponseEntity<Map<String,String>> agregarRuta(@RequestBody Ruta ruta){
         Map<String,String> response = new HashMap<>();
         try{
             rutaService.guardarRuta(ruta);
-            response.put("message","Ruta se creo");
+            response.put("message","Se ha agregado una ruta de forma exitos");
             return ResponseEntity.ok(response);
         }catch(Exception e){
             response.put("message","Error");
-            response.put("err","Error al crear la Ruta");
+            response.put("err","No se ha podido agragar la ruta");
             return ResponseEntity.badRequest().body(response);
         }
     }
 
-    //editar
+    //Editar
     @PutMapping("/{id}")
     public ResponseEntity<Map<String,String>> editarRuta(@PathVariable Long id,@RequestBody Ruta rutaNuevo){
         Map<String,String> response = new HashMap<>();
@@ -72,26 +74,26 @@ public class RutaController {
             ruta.setDistancia(rutaNuevo.getDistancia());
             ruta.setDuracion(rutaNuevo.getDuracion());
             rutaService.guardarRuta(ruta);
-            response.put("message","Ruta fue modificado ");
+            response.put("message","La ruta se ha modificado con exito");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("message", "Error");
-            response.put("err", "Error al editar la Ruta");
+            response.put("err", "No se ha podido editar la ruta");
             return ResponseEntity.badRequest().body(response);
         }
     }
-    //eliminar
+    //Eliminar
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String,String>> eliminarRuta(@PathVariable Long id){
         Map<String,String> response = new HashMap<>();
         try {
             Ruta ruta = rutaService.busRutaPorId(id);
             rutaService.eliminarRuta(ruta);
-            response.put("message", "La Ruta se elimino");
+            response.put("message", "La Ruta se ha eliminado con exito");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("message", "Error");
-            response.put("err", "Error al intentar eliminar la Ruta");
+            response.put("err", "No se ha podido eliminar la ruta");
             return ResponseEntity.badRequest().body(response);
         }
     }
