@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.agenciaviajes.webapp.agenciaViajes.model.Viajero;
 
+import java.util.Date;
+
+
 public interface IViajeroService {
     public List<Viajero> listarViajeros();
 
@@ -12,4 +15,8 @@ public interface IViajeroService {
     public Viajero buscarViajeroPorId(Long Id);
 
     public void eliminarViajero(Viajero viajero);
+
+    public Boolean esCorreoUnico(String correo);
+
+    public Boolean validarFechaRegistroNoFutura(Date fechaRegistro);
 }

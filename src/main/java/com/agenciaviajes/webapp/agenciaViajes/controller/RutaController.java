@@ -38,7 +38,7 @@ public class RutaController {
     } 
 
     //Buscar
-    @GetMapping("/id={id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Ruta> busRutaPorId(@PathVariable Long id){
         try{
             Ruta ruta = rutaService.busRutaPorId(id);

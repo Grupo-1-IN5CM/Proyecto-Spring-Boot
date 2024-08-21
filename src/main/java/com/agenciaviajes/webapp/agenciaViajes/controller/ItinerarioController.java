@@ -12,7 +12,7 @@ import com.agenciaviajes.webapp.agenciaViajes.model.Itinerario;
 import com.agenciaviajes.webapp.agenciaViajes.service.IItinerarioService;
 
 @RestController
-@RequestMapping("itinerarios")
+@RequestMapping("itinerario")
 public class ItinerarioController {
 
     @Autowired
@@ -20,12 +20,16 @@ public class ItinerarioController {
 
     //Listar
     @GetMapping("/")
-    public List<Itinerario> listaItinerarios(){
-        return itinerarioService.listarItinerario();
+    public ResponseEntity<List<?>> ListarItinerario() {
+        try {
+            return ResponseEntity.ok(itinerarioService.listarItinerario());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     //Buscar
-    @GetMapping("/id={id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Itinerario> buscarItinerario(@PathVariable Long id){
         try {
             Itinerario itinerario = itinerarioService.buscarItinerarioPorId(id);

@@ -27,7 +27,7 @@ public class ViajeroController {
     }
 
     //Buscar
-    @GetMapping("/id={id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Viajero> buscarViajeroPorId(@PathVariable Long id){
         try {
             Viajero viajero = viajeroService.buscarViajeroPorId(id);
@@ -39,38 +39,58 @@ public class ViajeroController {
 
     //Agregar
     @PostMapping("/")
-    public ResponseEntity<Map<String, String>> agregarViajero(@RequestBody Viajero viajero){
+    public ResponseEntity<Map<String, String>> agregarViajero(@RequestBody Viajero viajero) {
         Map<String, String> response = new HashMap<>();
-        try{
-            viajeroService.guardarViajero(viajero);
-            response.put("message: ", "Viajero agregado con exito");
-            return ResponseEntity.ok(response);
-        }catch(Exception e){
-            response.put("message: ", "Error");
-            response.put("err", "No se ha podido agregar el Viajero");
+        try {
+            // Validación de correo único y fecha de registro
+            if (!viajeroService.esCorreoUnico(viajero.getCorreo()) && viajeroService.validarFechaRegistroNoFutura(viajero.getFechaRegistro())) {
+                viajeroService.guardarViajero(viajero);
+                response.put("message", "El viajero se creó con éxito");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "Error en la validación del viajero");
+                if (!viajeroService.esCorreoUnico(viajero.getCorreo())) {
+                    response.put("err", "El correo ya está en uso");
+                } else if (!viajeroService.validarFechaRegistroNoFutura(viajero.getFechaRegistro())) {
+                    response.put("err", "La fecha de registro no puede ser una fecha futura");
+                }
+                return ResponseEntity.badRequest().body(response);
+            }
+        } catch (Exception e) {
+            response.put("message", "Error");
+            response.put("err", "Hubo un error al crear el viajero");
             return ResponseEntity.badRequest().body(response);
         }
     }
 
     //Editar
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, String>> editarEmpleado(@PathVariable Long id, @RequestBody Viajero viajeroNuevo){
+    public ResponseEntity<Map<String, String>> editarViajero(@PathVariable Long id, @RequestBody Viajero viajeroNuevo) {
         Map<String, String> response = new HashMap<>();
-        
         try {
-            Viajero viajero = viajeroService.buscarViajeroPorId(id);    
-            viajero.setNombre(viajeroNuevo.getNombre());
-            viajero.setApellido(viajeroNuevo.getApellido());
-            viajero.setCorreo(viajeroNuevo.getTelefono());
-            viajero.setTelefono(viajeroNuevo.getTelefono());
-            viajero.setFechaRegistro(viajeroNuevo.getFechaRegistro());
-            viajero.setItinerario(viajeroNuevo.getItinerario());
-            viajeroService.guardarViajero(viajero);
-            response.put("message", "El viajero se ha modificado con exito");
-            return ResponseEntity.ok(response);
+            Viajero viajero = viajeroService.buscarViajeroPorId(id);
+
+            // Validación de correo único (excluyendo el viajero actual) y fecha de registro
+            if ((viajero.getCorreo().equals(viajeroNuevo.getCorreo()) || viajeroService.esCorreoUnico(viajeroNuevo.getCorreo())) &&
+                viajeroService.validarFechaRegistroNoFutura(viajeroNuevo.getFechaRegistro())) {
+
+                viajero.setApellido(viajeroNuevo.getApellido());
+                viajero.setCorreo(viajeroNuevo.getCorreo());
+                viajero.setFechaRegistro(viajeroNuevo.getFechaRegistro());
+                viajero.setNombre(viajeroNuevo.getNombre());
+                viajero.setTelefono(viajeroNuevo.getTelefono());
+                viajeroService.guardarViajero(viajero);
+
+                response.put("message", "El viajero fue modificado con éxito");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "Error en la validación del viajero");
+                response.put("err", "Correo ya está en uso o fecha de registro es futura");
+                return ResponseEntity.badRequest().body(response);
+            }
         } catch (Exception e) {
             response.put("message", "Error");
-            response.put("err", "Hubo un error al intentar modificar al viajero");
+            response.put("err", "Hubo un error al modificar el viajero");
             return ResponseEntity.badRequest().body(response);
         }
     }
