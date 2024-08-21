@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agenciaviajes.webapp.agenciaViajes.model.Oferta;
+import com.agenciaviajes.webapp.agenciaViajes.model.Vehiculo;
 import com.agenciaviajes.webapp.agenciaViajes.repository.OfertaRepository;
 
 @Service
@@ -32,4 +33,14 @@ public class OfertaService  implements IOfertaService{
     public void eliminarOferta(Oferta oferta) {
         ofertaRepository.delete(oferta);
     }
+
+    @Override
+    public Boolean validarFechasConsistentes(Oferta oferta) {
+        return oferta.getFechaInicio() != null && oferta.getFechaFinal() != null
+               && !oferta.getFechaInicio().after(oferta.getFechaFinal());
+    }
+
+    public Boolean verificarDisponibilidadVehiculo(Vehiculo vehiculo) {
+    return vehiculo != null && vehiculo.getDisponibilidad().equals(Boolean.TRUE);
+}
 }

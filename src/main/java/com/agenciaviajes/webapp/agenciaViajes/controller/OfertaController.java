@@ -51,34 +51,47 @@ public class OfertaController {
 
     //agregar
     @PostMapping("/")
-    public ResponseEntity<Map<String,String>> agregarOferta(@RequestBody Oferta oferta){
-        Map<String,String> response = new HashMap<>();
-        try{
-            ofertaService.guardarOferta(oferta);
-            response.put("message","Oferta se creo");
-            return ResponseEntity.ok(response);
-        }catch(Exception e){
-            response.put("message","Error");
-            response.put("err","Error al crear el libro");
+    public ResponseEntity<Map<String, String>> agregarOferta(@RequestBody Oferta oferta) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            if (ofertaService.validarFechasConsistentes(oferta) && ofertaService.verificarDisponibilidadVehiculo(oferta.getVehiculo())) {
+                ofertaService.guardarOferta(oferta);
+                response.put("message", "Oferta se creó correctamente");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "Error en la validación de la oferta");
+                response.put("err", "Fechas inconsistentes o vehículo no disponible");
+                return ResponseEntity.badRequest().body(response);
+            }
+        } catch (Exception e) {
+            response.put("message", "Error");
+            response.put("err", "Error al crear la oferta");
             return ResponseEntity.badRequest().body(response);
         }
     }
 
+
     //editar
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String,String>> editarOferta(@PathVariable Long id,@RequestBody Oferta ofertaNueva){
-        Map<String,String> response = new HashMap<>();
+    public ResponseEntity<Map<String, String>> editarOferta(@PathVariable Long id, @RequestBody Oferta ofertaNueva) {
+    Map<String, String> response = new HashMap<>();
         try {
             Oferta oferta = ofertaService.busOfertaPorId(id);
-            oferta.setFechaInicio(ofertaNueva.getFechaInicio());
-            oferta.setFechaFinal(ofertaNueva.getFechaFinal());
-            oferta.setTiempo(ofertaNueva.getTiempo());
-            oferta.setTipoParada(ofertaNueva.getTipoParada());
-            oferta.setVehiculo(ofertaNueva.getVehiculo());
-            oferta.setRuta(ofertaNueva.getRuta());
-            ofertaService.guardarOferta(oferta);
-            response.put("message","La oferta fue modificado ");
-            return ResponseEntity.ok(response);
+            if (ofertaService.validarFechasConsistentes(ofertaNueva) && ofertaService.verificarDisponibilidadVehiculo(ofertaNueva.getVehiculo())) {
+                oferta.setFechaInicio(ofertaNueva.getFechaInicio());
+                oferta.setFechaFinal(ofertaNueva.getFechaFinal());
+                oferta.setTiempo(ofertaNueva.getTiempo());
+                oferta.setTipoParada(ofertaNueva.getTipoParada());
+                oferta.setVehiculo(ofertaNueva.getVehiculo());
+                oferta.setRuta(ofertaNueva.getRuta());
+                ofertaService.guardarOferta(oferta);
+                response.put("message", "La oferta fue modificada correctamente");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "Error en la validación de la oferta");
+                response.put("err", "Fechas inconsistentes o vehículo no disponible");
+                return ResponseEntity.badRequest().body(response);
+            }
         } catch (Exception e) {
             response.put("message", "Error");
             response.put("err", "Error al editar la oferta");
@@ -101,3 +114,4 @@ public class OfertaController {
         }
     }
 }
+
