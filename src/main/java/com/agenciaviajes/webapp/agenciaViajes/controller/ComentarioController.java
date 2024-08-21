@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public class ComentarioController {
     ComentarioService comentarioService;
 
     @GetMapping("/")
-    public ResponseEntity<List<Comentario>> ListarComentario() {
+    public ResponseEntity<List<?>> ListarComentario() {
         try {
             return ResponseEntity.ok(comentarioService.ListarComentario());
         } catch (Exception e) {
@@ -40,35 +41,49 @@ public class ComentarioController {
     public ResponseEntity<Map<String, String>> agregarComentario(@RequestBody Comentario comentario) {
         Map<String, String> response = new HashMap<>();
         try {
-            comentarioService.guardarComentario(comentario);
-            response.put("message", "El comentario se  creo con éxito");
-            return ResponseEntity.ok(response);
+            if (comentarioService.validarCalificacionEnRango(comentario.getCalificacion()) && comentarioService.validarComentarioNoVacio(comentario.getComentario())) {
+                comentarioService.guardarComentario(comentario);
+                response.put("message", "El comentario se creó con éxito");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "Error en la validación del comentario");
+                response.put("err", "Calificación fuera de rango o comentario vacío");
+                return ResponseEntity.badRequest().body(response);
+            }
         } catch (Exception e) {
-            response.put("message", " Error");
+            response.put("message", "Error");
             response.put("err", "Hubo un error al crear el comentario");
             return ResponseEntity.badRequest().body(response);
         }
     }
 
-    @PutMapping("/{Id}")
-    public ResponseEntity<Map<String, String>> editarComentario(@RequestParam Long id,
-            @RequestBody Comentario comentarioNuevo) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, String>> editarComentario(@PathVariable Long id, @RequestBody Comentario comentarioNuevo) {
         Map<String, String> response = new HashMap<>();
         try {
             Comentario comentario = comentarioService.busComentarioPorId(id);
-            comentario.setViajero(comentarioNuevo.getViajero());
-            comentario.setCalificacion(comentarioNuevo.getCalificacion());
-            comentario.setComentario(comentarioNuevo.getComentario());
-            comentario.setFecha(comentarioNuevo.getFecha());
-            comentarioService.guardarComentario(comentario);
-            response.put("message", "Comentario modificado con éxito");
-            return ResponseEntity.ok(response);
+
+            // Validación de calificación y comentario no vacío
+            if (comentarioService.validarCalificacionEnRango(comentarioNuevo.getCalificacion()) && comentarioService.validarComentarioNoVacio(comentarioNuevo.getComentario())) {
+                comentario.setViajero(comentarioNuevo.getViajero());
+                comentario.setCalificacion(comentarioNuevo.getCalificacion());
+                comentario.setComentario(comentarioNuevo.getComentario());
+                comentario.setFecha(comentarioNuevo.getFecha());
+                comentarioService.guardarComentario(comentario);
+                response.put("message", "Comentario modificado con éxito");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "Error en la validación del comentario");
+                response.put("err", "Calificación fuera de rango o comentario vacío");
+                return ResponseEntity.badRequest().body(response);
+            }
         } catch (Exception e) {
             response.put("message", "Error");
             response.put("err", "Hubo un error al modificar el comentario");
             return ResponseEntity.badRequest().body(response);
         }
     }
+
 
     @DeleteMapping("/{Id}")
     public ResponseEntity<Map<String, String>> eliminarComentario(@RequestParam Long id) {

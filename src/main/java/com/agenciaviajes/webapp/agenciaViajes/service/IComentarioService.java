@@ -14,4 +14,9 @@ public interface IComentarioService {
     public Comentario busComentarioPorId(Long id);
 
     public void eliminarComentario(Comentario comentario);
+
+    public Boolean validarCalificacionEnRango(Integer calificacion);
+
+    public Boolean validarComentarioNoVacio(String comentario);
+
 }

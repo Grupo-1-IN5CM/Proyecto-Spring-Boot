@@ -21,7 +21,7 @@ import com.agenciaviajes.webapp.agenciaViajes.service.ParadaService;
 
 @Controller
 @RestController
-@RequestMapping("Parada")
+@RequestMapping("parada")
 public class ParadaController {
     
     @Autowired
@@ -29,7 +29,7 @@ public class ParadaController {
     
     //Listar
     @GetMapping("/")
-    public ResponseEntity<List<Parada>> listarParada(){
+    public ResponseEntity<List<?>> listarParada(){
        try {
             return  ResponseEntity.ok(paradaService.ListarParada());
        } catch (Exception e) {
@@ -38,7 +38,7 @@ public class ParadaController {
     } 
 
     //Buscar
-    @GetMapping("/id={id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Parada> buscarParadaPorId(@PathVariable Long id){
         try{
             Parada parada = paradaService.busParadaPorId(id);

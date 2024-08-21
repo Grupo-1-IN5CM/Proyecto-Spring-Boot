@@ -37,4 +37,14 @@ public class ComentarioService implements IComentarioService {
         comentarioRepository.delete(comentario);
     }
 
+    @Override
+    public Boolean validarCalificacionEnRango(Integer calificacion) {
+        return calificacion != null && calificacion >= 1 && calificacion <= 5;
+    }
+    
+    @Override
+    public Boolean validarComentarioNoVacio(String comentario) {
+        return comentario != null && !comentario.trim().isEmpty();
+    }
+
 }
