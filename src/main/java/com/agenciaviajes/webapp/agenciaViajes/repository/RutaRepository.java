@@ -7,3 +7,4 @@ import com.agenciaviajes.webapp.agenciaViajes.model.Ruta;
 public interface RutaRepository extends JpaRepository<Ruta,Long>{
 
 }
+ 
