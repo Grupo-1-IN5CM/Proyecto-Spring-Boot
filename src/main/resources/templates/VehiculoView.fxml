@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agenciaviajes.webapp.agenciaViajes.controller.FXController.VehiculoFXController">
+   <children>
+      <ImageView fitHeight="750.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/8.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfId" editable="false" layoutX="51.0" layoutY="152.0" prefHeight="38.0" prefWidth="368.0" />
+      <TextField fx:id="tfMarca" layoutX="51.0" layoutY="252.0" prefHeight="38.0" prefWidth="368.0" />
+      <TextField fx:id="tfModelo" layoutX="51.0" layoutY="350.0" prefHeight="38.0" prefWidth="368.0" />
+      <TextField fx:id="tfTipo" layoutX="51.0" layoutY="447.0" prefHeight="38.0" prefWidth="368.0" />
+      <TextField fx:id="tfCapacidad" layoutX="51.0" layoutY="551.0" prefHeight="38.0" prefWidth="368.0" />
+      <TextField fx:id="tfDisponibilidad" layoutX="525.0" layoutY="160.0" prefHeight="30.0" prefWidth="362.0" />
+      <TextField fx:id="tfBuscar" layoutX="522.0" layoutY="47.0" prefHeight="38.0" prefWidth="374.0" promptText="Buscar por ID" />
+      <Button fx:id="btnAgregar" layoutX="334.0" layoutY="662.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="174.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Guardar" />
+      <Button fx:id="btnClear" layoutX="143.0" layoutY="662.0" onAction="#borrarTextField" opacity="0.0" prefHeight="67.0" prefWidth="174.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Limpiar" />
+      <Button fx:id="btnEliminar" layoutX="24.0" layoutY="662.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="101.0" style="-fx-background-color: #FF5555; -fx-text-fill: white; -fx-font-size: 18px;" text="Eliminar" />
+      <Button fx:id="btnBuscar" layoutX="904.0" layoutY="35.0" onAction="#buscarVehiculoPorId" opacity="0.0" prefHeight="59.0" prefWidth="89.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Buscar" />
+      <Button fx:id="btnReturn" layoutX="1022.0" layoutY="670.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="59.0" prefWidth="101.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Regresar" />
+      <TableView fx:id="tblVehiculos" layoutX="501.0" layoutY="217.0" onMouseClicked="#cargarTextField" prefHeight="426.0" prefWidth="597.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="colMarca" prefWidth="92.7999267578125" text="Marca" />
+            <TableColumn fx:id="colModel" prefWidth="91.199951171875" text="Model" />
+            <TableColumn fx:id="colTipo" prefWidth="88.800048828125" text="Tipo" />
+            <TableColumn fx:id="colCapacidad" prefWidth="115.20001220703125" text="Capacidad" />
+            <TableColumn fx:id="colDisponibilidad" prefWidth="137.60003662109375" text="Disponibilidad" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

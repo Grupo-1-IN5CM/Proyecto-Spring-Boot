@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agenciaviajes.webapp.agenciaViajes.controller.FXController.ItinerarioFXController">
+    
+    <!-- Imagen de fondo -->
+    <children>
+        <ImageView fitHeight="750.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../image/3.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="tfId" editable="false" layoutX="53.0" layoutY="194.0" prefHeight="30" prefWidth="357.0" />
+        <TextField fx:id="tfFecha" layoutX="53.0" layoutY="290.0" prefHeight="30" prefWidth="358.0" />
+        <TextField fx:id="tfHora" layoutX="53.0" layoutY="396.0" prefHeight="30" prefWidth="358.0" />
+
+        <!-- Botones -->
+        <Button fx:id="btnClear" layoutX="143.0" layoutY="664.0" onAction="#borrarTextField" opacity="0.0" prefHeight="66.0" prefWidth="170.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Limpiar" />
+        
+        <Button fx:id="btnAgregar" layoutX="331.0" layoutY="664.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="66.0" prefWidth="177.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="agregar" />
+
+        <!-- Botón para eliminar itinerario -->
+        <Button fx:id="btnEliminar" layoutX="24.0" layoutY="664.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="66.0" prefWidth="101.0" style="-fx-background-color: #FF5555; -fx-text-fill: white; -fx-font-size: 18px;" text="Eliminar Itinerario" />
+      <ComboBox fx:id="cmbRuta" layoutX="53.0" layoutY="490.0" prefHeight="30.0" prefWidth="358.0" />
+      <ComboBox fx:id="cmbParada" layoutX="53.0" layoutY="588.0" prefHeight="26.0" prefWidth="366.0" />
+      <TableView fx:id="tblItinerario" layoutX="490.0" layoutY="203.0" onMouseClicked="#cargarTextField" prefHeight="426.0" prefWidth="599.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="colFecha" prefWidth="147.20001220703125" text="Fecha" />
+            <TableColumn fx:id="colHora" prefWidth="111.199951171875" text="Hora" />
+            <TableColumn fx:id="colRuta" prefWidth="136.0" text="Ruta" />
+            <TableColumn fx:id="colParada" prefWidth="131.99993896484375" text="Parada" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnReturn" layoutX="1026.0" layoutY="664.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="66.0" prefWidth="101.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Regresar" />
+      <Button fx:id="btnBuscar" layoutX="493.0" layoutY="116.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="66.0" prefWidth="92.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Buscar" />
+      <TextField fx:id="tfBuscar" layoutX="592.0" layoutY="134.0" prefHeight="36.0" prefWidth="374.0" promptText="Buscar Por Id" />
+        
+    </children>
+</AnchorPane>
