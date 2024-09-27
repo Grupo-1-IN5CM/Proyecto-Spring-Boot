@@ -12,10 +12,8 @@ import org.springframework.stereotype.Component;
 import com.agenciaviajes.webapp.agenciaViajes.model.Ruta;
 import com.agenciaviajes.webapp.agenciaViajes.service.RutaService;
 import com.agenciaviajes.webapp.agenciaViajes.system.Main;
-<<<<<<< HEAD
-=======
+
 import com.agenciaviajes.webapp.agenciaViajes.utils.Alerta;
->>>>>>> Giovanni-Carrera
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,12 +46,10 @@ public class RutaFXController implements Initializable {
 
     @Autowired
     RutaService rutaService;
-<<<<<<< HEAD
-=======
+
     
     @Autowired
     Alerta alerta;
->>>>>>> Giovanni-Carrera
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
@@ -108,16 +104,13 @@ public class RutaFXController implements Initializable {
         return FXCollections.observableArrayList(rutaService.ListarRuta());
     }
 
-<<<<<<< HEAD
+
     public void agregarRuta(){
-=======
     public void agregarRuta() {
->>>>>>> Giovanni-Carrera
         Ruta ruta = new Ruta();
         ruta.setNombre(tfNombre.getText());
         ruta.setDistancia(tfDistancia.getText());
         String timeString = tfDuracion.getText();
-<<<<<<< HEAD
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");        
         try {
             java.util.Date parsedDate = sdf.parse(timeString);
@@ -135,13 +128,10 @@ public class RutaFXController implements Initializable {
         ruta.setNombre(tfNombre.getText());
         ruta.setDistancia(tfDistancia.getText());
         String timeString = tfDuracion.getText();
-=======
->>>>>>> Giovanni-Carrera
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         try {
             java.util.Date parsedDate = sdf.parse(timeString);
             Time time = new Time(parsedDate.getTime());
-<<<<<<< HEAD
             ruta.setDuracion(time);   
             rutaService.guardarRuta(ruta);
             cargarDatos();    
@@ -154,7 +144,6 @@ public class RutaFXController implements Initializable {
         Ruta ruta = rutaService.busRutaPorId(Long.parseLong(tfId.getText()));
         rutaService.eliminarRuta(ruta);
         cargarDatos();
-=======
             ruta.setDuracion(time);
             rutaService.guardarRuta(ruta);
             cargarDatos();
@@ -214,12 +203,10 @@ public class RutaFXController implements Initializable {
         } catch (Exception e) {
             alerta.mostrarAlertInfo(341); // Error inesperado
         }
->>>>>>> Giovanni-Carrera
     }
 
     public void buscarPorId() {
         if (!tfBuscar.getText().isEmpty()) {
-<<<<<<< HEAD
             Long id = Long.parseLong(tfBuscar.getText());
             Ruta ruta = rutaService.busRutaPorId(id);
             if (ruta != null) {
@@ -228,7 +215,6 @@ public class RutaFXController implements Initializable {
             } else {
                 System.out.println("Ruta no encontrada");
                 cargarDatos();
-=======
             try {
                 Long id = Long.parseLong(tfBuscar.getText());
                 Ruta ruta = rutaService.busRutaPorId(id);
@@ -246,7 +232,6 @@ public class RutaFXController implements Initializable {
                 System.err.println("El ID ingresado no es válido: " + e.getMessage());
             } catch (Exception e) {
                 alerta.mostrarAlertInfo(341); // Error inesperado
->>>>>>> Giovanni-Carrera
             }
         } else {
             cargarDatos();
