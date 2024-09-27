@@ -9,8 +9,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.agenciaviajes.webapp.agenciaViajes.AgenciaViajesApplication;
 import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.InicioFXMLController;
 import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.ItinerarioFXController;
+<<<<<<< HEAD
 import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.OfertaFXController;
 import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.ParadaFXController;
+=======
+import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.LoginFXMLController;
+import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.LoginMFXMLController;
+import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.ParadaFXController;
+import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.RegistrarFXMLController;
+>>>>>>> Giovanni-Carrera
 import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.RutaFXController;
 import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.VehiculoFXController;
 import com.agenciaviajes.webapp.agenciaViajes.controller.FXController.ViajeroFXController;
@@ -20,6 +27,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+<<<<<<< HEAD
+=======
+import javafx.scene.image.Image;
+>>>>>>> Giovanni-Carrera
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -37,8 +48,15 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
+<<<<<<< HEAD
         stage.setTitle("Agencia de Viajes");  
         inicioView();
+=======
+        stage.setTitle("Agencia de Viajes");
+        Image image = new Image(getClass().getResource("/image/Logo.png").toString());
+        stage.getIcons().add(image);
+        loginView();
+>>>>>>> Giovanni-Carrera
         stage.show();
     }
 
@@ -60,6 +78,37 @@ public class Main extends Application{
         return initializable;
     }
 
+<<<<<<< HEAD
+=======
+    public void loginView() {
+        try {
+            LoginFXMLController loginView = (LoginFXMLController) cambioEscena("Login.fxml", 700, 450);
+            loginView.setStage(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loginMView() {
+        try {
+            LoginMFXMLController loginMView = (LoginMFXMLController) cambioEscena("LoginM.fxml", 700, 450);
+            loginMView.setStage(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void registroView() {
+        try {
+            RegistrarFXMLController registroView = (RegistrarFXMLController) cambioEscena("Registro.fxml", 470, 700);
+            registroView.setStage(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+>>>>>>> Giovanni-Carrera
     public void inicioView(){
         try {
             InicioFXMLController inicioView = (InicioFXMLController)cambioEscena("Inicio.fxml", 1200, 750);
@@ -115,11 +164,15 @@ public class Main extends Application{
     }
 
     public void ofertaFXView(){
+<<<<<<< HEAD
         try {
             OfertaFXController ofertaFXView = (OfertaFXController)cambioEscena("Oferta.fxml", 1200, 750);
             ofertaFXView.setStage(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
+=======
+        
+>>>>>>> Giovanni-Carrera
     }
 }

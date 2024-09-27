@@ -33,6 +33,7 @@
 
         <!-- Botón para eliminar oferta -->
         <Button fx:id="btnEliminar" layoutX="34.0" layoutY="666.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="101.0" style="-fx-background-color: #FF5555; -fx-text-fill: white; -fx-font-size: 18px;" text="Eliminar Oferta" />
+<<<<<<< HEAD
       <TableView fx:id="tblOfertas" layoutX="357.0" layoutY="221.0" onMouseClicked="#cargarTextField" prefHeight="430.0" prefWidth="827.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="35.0" text="Id" />
@@ -43,6 +44,18 @@
             <TableColumn fx:id="colVehiculo" prefWidth="122.0" text="Vehiculo" />
             <TableColumn fx:id="colViajero" prefWidth="116.0" text="Viajero" />
             <TableColumn fx:id="colRuta" prefWidth="129.0" text="Ruta" />
+=======
+      <TableView fx:id="tblOfertas" layoutX="486.0" layoutY="221.0" onMouseClicked="#cargarTextField" prefHeight="430.0" prefWidth="698.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="60.799957275390625" text="Id" />
+          <TableColumn fx:id="colInicio" prefWidth="95.199951171875" text="Inicio" />
+            <TableColumn fx:id="colFin" prefWidth="91.20001220703125" text="Final" />
+            <TableColumn fx:id="colTiempo" prefWidth="83.20001220703125" text="Tiempo" />
+            <TableColumn fx:id="colTipo" prefWidth="78.39996337890625" text="Tipo " />
+            <TableColumn fx:id="colVehiculo" prefWidth="92.00006103515625" text="Vehiculo" />
+            <TableColumn fx:id="colViajero" prefWidth="100.0" text="Viajero" />
+            <TableColumn fx:id="colRuta" prefWidth="92.0" text="Ruta" />
+>>>>>>> Giovanni-Carrera
         </columns>
       </TableView>
       <ComboBox fx:id="cmbVehiculo" layoutX="508.0" layoutY="130.0" prefHeight="30.0" prefWidth="210.0" />

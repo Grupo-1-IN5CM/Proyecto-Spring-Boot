@@ -16,6 +16,10 @@ import com.agenciaviajes.webapp.agenciaViajes.service.ItinerarioService;
 import com.agenciaviajes.webapp.agenciaViajes.service.ParadaService;
 import com.agenciaviajes.webapp.agenciaViajes.service.RutaService;
 import com.agenciaviajes.webapp.agenciaViajes.system.Main;
+<<<<<<< HEAD
+=======
+import com.agenciaviajes.webapp.agenciaViajes.utils.Alerta; // Importar la clase Alerta
+>>>>>>> Giovanni-Carrera
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,6 +43,7 @@ public class ItinerarioFXController implements Initializable {
     TextField tfId, tfFecha, tfHora, tfBuscar;
 
     @FXML
+<<<<<<< HEAD
     TableView tblItinerario;
 
     @FXML
@@ -46,6 +51,18 @@ public class ItinerarioFXController implements Initializable {
 
     @FXML
     ComboBox cmbRuta, cmbParada;
+=======
+    TableView<Itinerario> tblItinerario;
+
+    @FXML
+    TableColumn<Itinerario, Long> colId, colFecha, colHora, colRuta, colParada;
+
+    @FXML
+    ComboBox<Ruta> cmbRuta;
+    
+    @FXML
+    ComboBox<Parada> cmbParada;
+>>>>>>> Giovanni-Carrera
 
     @FXML
     Button btnEliminar, btnClear, btnAgregar, btnReturn, btnBuscar;
@@ -59,6 +76,12 @@ public class ItinerarioFXController implements Initializable {
     @Autowired
     RutaService rutaService;
 
+<<<<<<< HEAD
+=======
+    @Autowired
+    Alerta alerta; // Inyectar la clase Alerta
+
+>>>>>>> Giovanni-Carrera
     @Override
     public void initialize(URL url, ResourceBundle resources) {
        cargarDatos();
@@ -70,6 +93,7 @@ public class ItinerarioFXController implements Initializable {
         if (event.getSource() == btnAgregar) {
             if (tfId.getText().isBlank()) {
                 agregarItinerario();
+<<<<<<< HEAD
             }else{
                 editarItinerario();
             }
@@ -78,6 +102,16 @@ public class ItinerarioFXController implements Initializable {
         }else if (event.getSource() == btnEliminar){
             eliminarItinerario();
         }else if(event.getSource() == btnReturn){
+=======
+            } else {
+                editarItinerario();
+            }
+        } else if(event.getSource() == btnBuscar){
+            buscarItinerarioPorId();
+        } else if (event.getSource() == btnEliminar){
+            eliminarItinerario();
+        } else if(event.getSource() == btnReturn){
+>>>>>>> Giovanni-Carrera
             stage.inicioView();
         }
     }
@@ -85,9 +119,15 @@ public class ItinerarioFXController implements Initializable {
     public void cargarDatos(){
         tblItinerario.getItems().clear();
         tblItinerario.setItems(listarItinerario());
+<<<<<<< HEAD
         colId.setCellValueFactory(new PropertyValueFactory<Itinerario, Long>("id"));
         colFecha.setCellValueFactory(new PropertyValueFactory<Itinerario, Date>("fecha"));
         colHora.setCellValueFactory(new PropertyValueFactory<Itinerario, Time>("hora"));
+=======
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
+>>>>>>> Giovanni-Carrera
         colRuta.setCellValueFactory(new PropertyValueFactory<>("ruta"));
         colParada.setCellValueFactory(new PropertyValueFactory<>("parada"));
     }
@@ -98,12 +138,20 @@ public class ItinerarioFXController implements Initializable {
     }
     
     private void cargarParadas() {
+<<<<<<< HEAD
         ObservableList<Parada> paradas = FXCollections.observableArrayList((paradaService.ListarParada()));
+=======
+        ObservableList<Parada> paradas = FXCollections.observableArrayList(paradaService.ListarParada());
+>>>>>>> Giovanni-Carrera
         cmbParada.setItems(paradas);
     }
 
     public void cargarTextField(){
+<<<<<<< HEAD
         Itinerario itinerario = (Itinerario)tblItinerario.getSelectionModel().getSelectedItem();
+=======
+        Itinerario itinerario = tblItinerario.getSelectionModel().getSelectedItem();
+>>>>>>> Giovanni-Carrera
         if (itinerario != null) {
             tfId.setText(Long.toString(itinerario.getId()));
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -131,6 +179,7 @@ public class ItinerarioFXController implements Initializable {
 
     public void agregarItinerario() {
         try {
+<<<<<<< HEAD
             Itinerario itinerario = new Itinerario();     
             itinerario.setFecha(Date.valueOf(tfFecha.getText()));
             itinerario.setHora(Time.valueOf(tfHora.getText()));
@@ -141,11 +190,30 @@ public class ItinerarioFXController implements Initializable {
             borrarTextField();        
         } catch (IllegalArgumentException e) {
             System.out.println("Formato de fecha o hora incorrecto: " + e.getMessage());
+=======
+            if (tfFecha.getText().isBlank() || tfHora.getText().isBlank() ||
+                cmbRuta.getSelectionModel().isEmpty() || cmbParada.getSelectionModel().isEmpty()) {
+                alerta.mostrarAlertInfo(341); // Campos faltantes
+                return;
+            }
+            Itinerario itinerario = new Itinerario();     
+            itinerario.setFecha(Date.valueOf(tfFecha.getText()));
+            itinerario.setHora(Time.valueOf(tfHora.getText()));
+            itinerario.setRuta(cmbRuta.getSelectionModel().getSelectedItem());
+            itinerario.setParada(cmbParada.getSelectionModel().getSelectedItem());
+            itinerarioService.guardarItinerario(itinerario);
+            cargarDatos(); 
+            borrarTextField();
+            alerta.mostrarAlertInfo(123); // Registro completado
+        } catch (IllegalArgumentException e) {
+            alerta.mostrarAlertInfo(341); // Campos faltantes
+>>>>>>> Giovanni-Carrera
         }
     }
     
     public void editarItinerario() {
         try {
+<<<<<<< HEAD
             Itinerario itinerario = (Itinerario) tblItinerario.getSelectionModel().getSelectedItem();
             if (itinerario != null) {
                 itinerario.setFecha(Date.valueOf(tfFecha.getText()));
@@ -158,15 +226,48 @@ public class ItinerarioFXController implements Initializable {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Formato de fecha o hora incorrecto: " + e.getMessage());
+=======
+            Itinerario itinerario = tblItinerario.getSelectionModel().getSelectedItem();
+            if (itinerario != null) {
+                itinerario.setFecha(Date.valueOf(tfFecha.getText()));
+                itinerario.setHora(Time.valueOf(tfHora.getText()));
+                itinerario.setRuta(cmbRuta.getSelectionModel().getSelectedItem());
+                itinerario.setParada(cmbParada.getSelectionModel().getSelectedItem());
+                itinerarioService.guardarItinerario(itinerario);
+                cargarDatos();
+                borrarTextField();
+                alerta.mostrarAlertInfo(789); // Edición exitosa
+            } else {
+                alerta.mostrarAlertInfo(341); // Campos faltantes
+            }
+        } catch (IllegalArgumentException e) {
+            alerta.mostrarAlertInfo(341); // Campos faltantes
+>>>>>>> Giovanni-Carrera
         }
     }
     
     public void eliminarItinerario() {
+<<<<<<< HEAD
         Itinerario itinerario = (Itinerario) tblItinerario.getSelectionModel().getSelectedItem();
         if (itinerario != null) {
             itinerarioService.eliminarItinerario(itinerario);
             cargarDatos(); 
             borrarTextField();
+=======
+        Itinerario itinerario = tblItinerario.getSelectionModel().getSelectedItem();
+        if (itinerario != null) {
+            boolean canDelete = true;
+            if (canDelete) {
+                itinerarioService.eliminarItinerario(itinerario);
+                cargarDatos(); 
+                borrarTextField();
+                alerta.mostrarAlertInfo(123); // Registro completado
+            } else {
+                alerta.mostrarAlertInfo(456); // No se pueden eliminar los datos
+            }
+        } else {
+            alerta.mostrarAlertInfo(341); // Campos faltantes
+>>>>>>> Giovanni-Carrera
         }
     }
     
@@ -180,6 +281,7 @@ public class ItinerarioFXController implements Initializable {
                 if (itinerario != null) {
                     tblItinerario.getItems().clear();
                     tblItinerario.setItems(FXCollections.observableArrayList(itinerario));
+<<<<<<< HEAD
                 } else {
                     System.out.println("Itinerario no encontrado");
                     tblItinerario.getItems().clear();
@@ -188,6 +290,17 @@ public class ItinerarioFXController implements Initializable {
                 System.out.println("ID inválido: " + e.getMessage());
             } catch (Exception e) {
                 System.out.println("Error al buscar el itinerario: " + e.getMessage());
+=======
+                    alerta.mostrarAlertInfo(123); // Itinerario encontrado
+                } else {
+                    alerta.mostrarAlertInfo(341); // No se encontró el itinerario
+                    tblItinerario.getItems().clear();
+                }
+            } catch (NumberFormatException e) {
+                alerta.mostrarAlertInfo(341); // ID inválido
+            } catch (Exception e) {
+                alerta.mostrarAlertInfo(341); // Error al buscar el itinerario
+>>>>>>> Giovanni-Carrera
             }
         }
     }

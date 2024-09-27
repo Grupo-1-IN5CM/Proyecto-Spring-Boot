@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agenciaviajes.webapp.agenciaViajes.controller.FXController.RegistrarFXMLController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="470.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Copia%20de%20Formul%20Registro.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfNombreU" layoutX="23.0" layoutY="231.0" prefHeight="26.0" prefWidth="390.0" />
+      <TextField fx:id="tfContraseña" layoutX="16.0" layoutY="343.0" prefHeight="26.0" prefWidth="397.0" />
+      <Accordion />
+      <Accordion />
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+      <ComboBox fx:id="cmbViajero" layoutX="15.0" layoutY="455.0" prefHeight="26.0" prefWidth="398.0" promptText="Viajero" />
+      <Button fx:id="btnRegistrar" layoutX="171.0" layoutY="592.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="126.0" text="Registrar" />
+      <Button fx:id="btnCancelar" layoutX="16.0" layoutY="592.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="98.0" text="Cancelar" />
+      <Button fx:id="btnViajero" layoutX="335.0" layoutY="592.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="126.0" text="Registrar" />
+   </children>
+</AnchorPane>

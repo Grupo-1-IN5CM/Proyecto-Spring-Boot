@@ -1,6 +1,7 @@
 package com.agenciaviajes.webapp.agenciaViajes.controller.FXController;
 
 import java.net.URL;
+<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+=======
+import java.util.ResourceBundle;
+
+import org.springframework.stereotype.Component;
+
+import com.agenciaviajes.webapp.agenciaViajes.system.Main;
+
+import javafx.fxml.Initializable;
+>>>>>>> Giovanni-Carrera
 import lombok.Setter;
 
 @Component
@@ -40,6 +50,7 @@ public class OfertaFXController implements Initializable{
     @Setter
     private Main stage;
 
+<<<<<<< HEAD
     @FXML
     TextField tfId, tfFIni, tfFfin, tfTiempo, tfTparada, tfBuscar;
 
@@ -232,4 +243,11 @@ public class OfertaFXController implements Initializable{
             }
         }
     }
+=======
+    @Override
+    public void initialize(URL url, ResourceBundle resources) {
+       
+    }
+    
+>>>>>>> Giovanni-Carrera
 }

@@ -12,6 +12,10 @@ import org.springframework.stereotype.Component;
 import com.agenciaviajes.webapp.agenciaViajes.model.Parada;
 import com.agenciaviajes.webapp.agenciaViajes.service.ParadaService;
 import com.agenciaviajes.webapp.agenciaViajes.system.Main;
+<<<<<<< HEAD
+=======
+import com.agenciaviajes.webapp.agenciaViajes.utils.Alerta;
+>>>>>>> Giovanni-Carrera
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,6 +48,11 @@ public class ParadaFXController implements Initializable{
 
     @Autowired
     ParadaService paradaService;
+<<<<<<< HEAD
+=======
+     @Autowired
+    Alerta alerta;
+>>>>>>> Giovanni-Carrera
     
     @Override
     public void initialize(URL url, ResourceBundle resources) {
@@ -101,6 +110,7 @@ public class ParadaFXController implements Initializable{
         return FXCollections.observableArrayList(paradaService.ListarParada());
     }
 
+<<<<<<< HEAD
     public void agregarParada(){
         Parada parada = new Parada();
         parada.setNombre(tfNombre.getText());
@@ -141,6 +151,79 @@ public class ParadaFXController implements Initializable{
         Parada parada = paradaService.busParadaPorId(Long.parseLong(tfId.getText()));
         paradaService.eliminarParada(parada);
         cargarDatos();
+=======
+    
+    public void agregarParada() {
+        Parada parada = new Parada();
+        try {
+            parada.setNombre(tfNombre.getText());
+            parada.setUbicacion(tfUbicacion.getText());
+            parada.setTipoParada(tfTipoParada.getText());
+            String timeString = tfTiempo.getText();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            java.util.Date parsedDate = sdf.parse(timeString);
+            Time time = new Time(parsedDate.getTime());
+            parada.setTiempo(time);
+            paradaService.guardarParada(parada);
+            cargarDatos();
+            borrarTextField();
+            alerta.mostrarAlertInfo(123); // Registro completado
+        } catch (ParseException e) {
+            alerta.mostrarAlertInfo(341); // Campos faltantes
+            System.err.println("Error al parsear el tiempo: " + e.getMessage());
+        } catch (Exception e) {
+            alerta.mostrarAlertInfo(341); // Campos faltantes
+        }
+    }
+
+    public void editarParada() {
+        try {
+            Parada parada = paradaService.busParadaPorId(Long.parseLong(tfId.getText()));
+            if (parada != null) {
+                parada.setNombre(tfNombre.getText());
+                parada.setUbicacion(tfUbicacion.getText());
+                String timeString = tfTiempo.getText();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                parada.setTipoParada(tfTipoParada.getText());
+                java.util.Date parsedDate = sdf.parse(timeString);
+                Time time = new Time(parsedDate.getTime());
+                parada.setTiempo(time);
+                paradaService.guardarParada(parada);
+                cargarDatos();
+                borrarTextField();
+                alerta.mostrarAlertInfo(789); // Edición exitosa
+            } else {
+                alerta.mostrarAlertInfo(341); // Campos faltantes
+            }
+        } catch (ParseException e) {
+            alerta.mostrarAlertInfo(341); // Campos faltantes
+            System.err.println("Error al parsear el tiempo: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            alerta.mostrarAlertInfo(341); // ID inválido
+            System.err.println("El ID ingresado no es válido: " + e.getMessage());
+        } catch (Exception e) {
+            alerta.mostrarAlertInfo(341); // Error inesperado
+        }
+    }
+
+    public void eliminarParada() {
+        try {
+            Parada parada = paradaService.busParadaPorId(Long.parseLong(tfId.getText()));
+            if (parada != null) {
+                paradaService.eliminarParada(parada);
+                cargarDatos();
+                borrarTextField();
+                alerta.mostrarAlertInfo(123); // Registro completado
+            } else {
+                alerta.mostrarAlertInfo(456); // No se pueden eliminar los datos
+            }
+        } catch (NumberFormatException e) {
+            alerta.mostrarAlertInfo(341); // ID inválido
+            System.err.println("El ID ingresado no es válido: " + e.getMessage());
+        } catch (Exception e) {
+            alerta.mostrarAlertInfo(341); // Error inesperado
+        }
+>>>>>>> Giovanni-Carrera
     }
 
     public void buscarPorId() {
@@ -153,6 +236,7 @@ public class ParadaFXController implements Initializable{
                 if (parada != null) {
                     tblParadas.getItems().clear();
                     tblParadas.getItems().add(parada);
+<<<<<<< HEAD
                 } else {
                     System.out.println("No se encontró ninguna parada con el ID: " + id);
                 }
@@ -161,4 +245,19 @@ public class ParadaFXController implements Initializable{
             }
         }
     }    
+=======
+                    alerta.mostrarAlertInfo(123); // Parada encontrada
+                } else {
+                    alerta.mostrarAlertInfo(341); // No se encontró la parada
+                    System.out.println("No se encontró ninguna parada con el ID: " + id);
+                }
+            } catch (NumberFormatException e) {
+                alerta.mostrarAlertInfo(341); // ID inválido
+                System.err.println("El ID ingresado no es válido: " + e.getMessage());
+            } catch (Exception e) {
+                alerta.mostrarAlertInfo(341); // Error inesperado
+            }
+        }
+    } 
+>>>>>>> Giovanni-Carrera
 }

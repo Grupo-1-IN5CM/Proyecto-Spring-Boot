@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import com.agenciaviajes.webapp.agenciaViajes.model.Vehiculo;
 import com.agenciaviajes.webapp.agenciaViajes.service.VehiculoService;
 import com.agenciaviajes.webapp.agenciaViajes.system.Main;
+<<<<<<< HEAD
+=======
+import com.agenciaviajes.webapp.agenciaViajes.utils.Alerta;
+>>>>>>> Giovanni-Carrera
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +46,12 @@ public class VehiculoFXController implements Initializable{
     @Autowired
     VehiculoService vehiculoService;
 
+<<<<<<< HEAD
+=======
+    @Autowired
+    Alerta alerta;
+
+>>>>>>> Giovanni-Carrera
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         cargarDatos();
@@ -100,6 +110,7 @@ public class VehiculoFXController implements Initializable{
         return FXCollections.observableArrayList(vehiculoService.ListarVehiculo());
     }
 
+<<<<<<< HEAD
     public void agregarVehiculo(){
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setMarca(tfMarca.getText());
@@ -126,6 +137,67 @@ public class VehiculoFXController implements Initializable{
         Vehiculo vehiculo = vehiculoService.busVehiculoPorId(Long.parseLong(tfId.getText()));
         vehiculoService.eliminarVehiculo(vehiculo);
         cargarDatos();
+=======
+    public void agregarVehiculo() {
+        try {
+            Vehiculo vehiculo = new Vehiculo();
+            vehiculo.setMarca(tfMarca.getText());
+            vehiculo.setModelo(tfModelo.getText());
+            vehiculo.setTipoVehiculo(tfTipo.getText());
+            vehiculo.setCapacidad(tfCapacidad.getText());
+            vehiculo.setDisponibilidad(Boolean.parseBoolean(tfDisponibilidad.getText()));
+            vehiculoService.guardarVehiculo(vehiculo);
+            cargarDatos();
+            borrarTextField();
+            alerta.mostrarAlertInfo(123); // Vehículo agregado exitosamente
+        } catch (Exception e) {
+            alerta.mostrarAlertInfo(341); // Error inesperado al agregar
+            System.err.println("Error al agregar vehículo: " + e.getMessage());
+        }
+    }
+
+    public void editarVehiculo() {
+        try {
+            Vehiculo vehiculo = vehiculoService.busVehiculoPorId(Long.parseLong(tfId.getText()));
+            if (vehiculo != null) {
+                vehiculo.setMarca(tfMarca.getText());
+                vehiculo.setModelo(tfModelo.getText());
+                vehiculo.setTipoVehiculo(tfTipo.getText());
+                vehiculo.setCapacidad(tfCapacidad.getText());
+                vehiculo.setDisponibilidad(Boolean.parseBoolean(tfDisponibilidad.getText()));
+                vehiculoService.guardarVehiculo(vehiculo);
+                cargarDatos();
+                borrarTextField();
+                alerta.mostrarAlertInfo(789); // Vehículo editado exitosamente
+            } else {
+                alerta.mostrarAlertInfo(456); // Vehículo no encontrado
+            }
+        } catch (NumberFormatException e) {
+            alerta.mostrarAlertInfo(341); // ID inválido
+            System.err.println("El ID ingresado no es válido: " + e.getMessage());
+        } catch (Exception e) {
+            alerta.mostrarAlertInfo(341); // Error inesperado al editar
+        }
+    }
+
+    public void eliminarVehiculo() {
+        try {
+            Vehiculo vehiculo = vehiculoService.busVehiculoPorId(Long.parseLong(tfId.getText()));
+            if (vehiculo != null) {
+                vehiculoService.eliminarVehiculo(vehiculo);
+                cargarDatos();
+                borrarTextField();
+                alerta.mostrarAlertInfo(123); // Vehículo eliminado exitosamente
+            } else {
+                alerta.mostrarAlertInfo(456); // Vehículo no encontrado
+            }
+        } catch (NumberFormatException e) {
+            alerta.mostrarAlertInfo(341); // ID inválido
+            System.err.println("El ID ingresado no es válido: " + e.getMessage());
+        } catch (Exception e) {
+            alerta.mostrarAlertInfo(341); // Error inesperado al eliminar
+        }
+>>>>>>> Giovanni-Carrera
     }
 
     public void buscarVehiculoPorId() {
@@ -141,6 +213,7 @@ public class VehiculoFXController implements Initializable{
             if (vehiculo != null) {
                 tblVehiculos.getItems().clear();
                 ObservableList<Vehiculo> vehiculosEncontrados = FXCollections.observableArrayList(vehiculo);
+<<<<<<< HEAD
                 tblVehiculos.setItems(vehiculosEncontrados);   
                 tblVehiculos.getSelectionModel().select(vehiculo);
                 cargarTextField();
@@ -150,6 +223,22 @@ public class VehiculoFXController implements Initializable{
             }
         } catch (NumberFormatException e) {
             System.out.println("ID no válido.");
+=======
+                tblVehiculos.setItems(vehiculosEncontrados);
+                tblVehiculos.getSelectionModel().select(vehiculo);
+                cargarTextField();
+                alerta.mostrarAlertInfo(123); // Vehículo encontrado
+            } else {
+                borrarTextField();
+                alerta.mostrarAlertInfo(456); // Vehículo no encontrado
+                System.out.println("Vehículo no encontrado.");
+            }
+        } catch (NumberFormatException e) {
+            alerta.mostrarAlertInfo(341); // ID no válido
+            System.out.println("ID no válido.");
+        } catch (Exception e) {
+            alerta.mostrarAlertInfo(341); // Error inesperado al buscar
+>>>>>>> Giovanni-Carrera
         }
     }        
 }
