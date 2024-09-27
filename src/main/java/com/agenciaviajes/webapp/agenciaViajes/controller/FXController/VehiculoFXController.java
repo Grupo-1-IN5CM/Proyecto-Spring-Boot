@@ -108,33 +108,7 @@ public class VehiculoFXController implements Initializable{
     }
 
 
-    public void agregarVehiculo(){
-        Vehiculo vehiculo = new Vehiculo();
-        vehiculo.setMarca(tfMarca.getText());
-        vehiculo.setModelo(tfModelo.getText());
-        vehiculo.setTipoVehiculo(tfTipo.getText());
-        vehiculo.setCapacidad(tfCapacidad.getText());
-        vehiculo.setDisponibilidad(Boolean.parseBoolean(tfDisponibilidad.getText()));
-        vehiculoService.guardarVehiculo(vehiculo);
-        cargarDatos();
-    }
-
-    public void editarVehiculo(){
-        Vehiculo vehiculo = vehiculoService.busVehiculoPorId(Long.parseLong(tfId.getText()));
-        vehiculo.setMarca(tfMarca.getText());
-        vehiculo.setModelo(tfModelo.getText());
-        vehiculo.setTipoVehiculo(tfTipo.getText());
-        vehiculo.setCapacidad(tfCapacidad.getText());
-        vehiculo.setDisponibilidad(Boolean.parseBoolean(tfDisponibilidad.getText()));
-        vehiculoService.guardarVehiculo(vehiculo);
-        cargarDatos();
-    }
-
-    public void eliminarVehiculo(){
-        Vehiculo vehiculo = vehiculoService.busVehiculoPorId(Long.parseLong(tfId.getText()));
-        vehiculoService.eliminarVehiculo(vehiculo);
-        cargarDatos();
-
+    
     public void agregarVehiculo() {
         try {
             Vehiculo vehiculo = new Vehiculo();
@@ -199,39 +173,33 @@ public class VehiculoFXController implements Initializable{
     public void buscarVehiculoPorId() {
         String idTexto = tfBuscar.getText();
         if (idTexto.isBlank()) {
-            cargarDatos();
+            cargarDatos();  // Si el campo de búsqueda está vacío, cargamos todos los datos.
             return;
         }
         try {
-            Long id = Long.parseLong(idTexto);
-            Vehiculo vehiculo = vehiculoService.busVehiculoPorId(id);
+            Long id = Long.parseLong(idTexto);  
+            Vehiculo vehiculo = vehiculoService.busVehiculoPorId(id);  
+            
             if (vehiculo != null) {
-                tblVehiculos.getItems().clear();
-                ObservableList<Vehiculo> vehiculosEncontrados = FXCollections.observableArrayList(vehiculo);
-
-                tblVehiculos.setItems(vehiculosEncontrados);   
-                tblVehiculos.getSelectionModel().select(vehiculo);
-                cargarTextField();
+                tblVehiculos.getItems().clear();  
+                ObservableList<Vehiculo> vehiculosEncontrados = FXCollections.observableArrayList(vehiculo); 
+                tblVehiculos.setItems(vehiculosEncontrados);  
+                tblVehiculos.getSelectionModel().select(vehiculo);  
+                cargarTextField();  
+                alerta.mostrarAlertInfo(123);  // Vehículo encontrado y mostrado.
             } else {
-                borrarTextField();
+                borrarTextField();  
+                alerta.mostrarAlertInfo(456);  // Vehículo no encontrado.
                 System.out.println("Vehículo no encontrado.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("ID no válido.");
-                tblVehiculos.setItems(vehiculosEncontrados);
-                tblVehiculos.getSelectionModel().select(vehiculo);
-                cargarTextField();
-                alerta.mostrarAlertInfo(123); // Vehículo encontrado
-            } else {
-                borrarTextField();
-                alerta.mostrarAlertInfo(456); // Vehículo no encontrado
-                System.out.println("Vehículo no encontrado.");
-            }
-        } catch (NumberFormatException e) {
-            alerta.mostrarAlertInfo(341); // ID no válido
-            System.out.println("ID no válido.");
+            alerta.mostrarAlertInfo(341);  // El ID ingresado no es válido.
+            System.out.println("ID no válido: " + e.getMessage());
         } catch (Exception e) {
-            alerta.mostrarAlertInfo(341); // Error inesperado al buscar
+            alerta.mostrarAlertInfo(341);  // Error inesperado al buscar.
+            System.err.println("Error al buscar vehículo: " + e.getMessage());
         }
-    }        
-}
+    }
+    
+}       
+
