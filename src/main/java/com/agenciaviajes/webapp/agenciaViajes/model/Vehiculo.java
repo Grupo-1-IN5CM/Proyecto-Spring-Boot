@@ -11,12 +11,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table (name="Rutas")
-public class Ruta {
+@Table (name="Vehiculos")
+public class Vehiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private String distancia;
-    private Time duracion;
+    private String marca;
+    private String modelo;
+    private String tipoVehiculo;
+    private String capacidad;
+    private Boolean disponibilidad;
 }

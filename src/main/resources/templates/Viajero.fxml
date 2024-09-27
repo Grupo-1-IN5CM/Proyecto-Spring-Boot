@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agenciaviajes.webapp.agenciaViajes.controller.FXController.ViajeroFXController">
+    
+    <!-- Imagen de fondo -->
+    <children>
+        <ImageView fitHeight="750.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../image/9.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="tfId" editable="false" layoutX="52.0" layoutY="162.0" prefHeight="30" prefWidth="360.0" />
+        <TextField fx:id="tfNombre" layoutX="52.0" layoutY="256.0" prefHeight="38.0" prefWidth="360.0" />
+        <TextField fx:id="tfApellido" layoutX="52.0" layoutY="356.0" prefHeight="38.0" prefWidth="360.0" />
+        <TextField fx:id="tfCorreo" layoutX="52.0" layoutY="456.0" prefHeight="38.0" prefWidth="360.0" />
+        <TextField fx:id="tfTelefono" layoutX="52.0" layoutY="551.0" prefHeight="38.0" prefWidth="360.0" />
+        <TextField fx:id="tfReg" layoutX="512.0" layoutY="162.0" prefHeight="30" prefWidth="214.0" />
+
+        <!-- Botones -->
+        <Button fx:id="btnAgregar" layoutX="360.0" layoutY="658.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="174.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Agregar" />
+        
+        <Button fx:id="btnClear" layoutX="167.0" layoutY="658.0" onAction="#borrarTextField" opacity="0.0" prefHeight="67.0" prefWidth="174.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Limpiar" />
+
+        <!-- Botón para eliminar viajero -->
+        <Button fx:id="btnEliminar" layoutX="50.0" layoutY="658.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="61.0" prefWidth="101.0" style="-fx-background-color: #FF5555; -fx-text-fill: white; -fx-font-size: 18px;" text="Eliminar" />
+      <Button fx:id="btnReturn" layoutX="1049.0" layoutY="658.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="101.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Regresar" />
+      <TableView fx:id="tblViajero" layoutX="425.0" layoutY="218.0" onMouseClicked="#cargarTextField" prefHeight="432.0" prefWidth="761.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="38.0" text="Id" />
+          <TableColumn fx:id="colNombre" prefWidth="100.0" text="Nombre" />
+            <TableColumn fx:id="colApellido" prefWidth="97.0" text="Apellido" />
+            <TableColumn fx:id="colCorreo" prefWidth="113.0" text="Correo" />
+            <TableColumn fx:id="colTelefono" prefWidth="114.0" text="Telefono" />
+            <TableColumn fx:id="colReg" prefWidth="158.0" text="Registro" />
+            <TableColumn fx:id="colItinerario" prefWidth="140.0" text="Itinerario" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="cmbItinerario" layoutX="757.0" layoutY="162.0" prefHeight="26.0" prefWidth="226.0" />
+      <TextField fx:id="tfBuscar" layoutX="512.0" layoutY="40.0" prefHeight="38.0" prefWidth="369.0" />
+      <Button fx:id="btnBuscar" layoutX="908.0" layoutY="33.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="61.0" prefWidth="89.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Regresar" />
+        
+    </children>
+</AnchorPane>
