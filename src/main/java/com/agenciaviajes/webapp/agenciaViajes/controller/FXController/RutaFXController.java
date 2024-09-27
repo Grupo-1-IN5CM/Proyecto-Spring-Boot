@@ -105,7 +105,6 @@ public class RutaFXController implements Initializable {
     }
 
 
-    public void agregarRuta(){
     public void agregarRuta() {
         Ruta ruta = new Ruta();
         ruta.setNombre(tfNombre.getText());
@@ -120,40 +119,6 @@ public class RutaFXController implements Initializable {
             cargarDatos();  
         } catch (ParseException e) {
             System.err.println("Error al parsear el tiempo: " + e.getMessage());
-        }
-    }
-
-    public void editarRuta(){
-        Ruta ruta = rutaService.busRutaPorId(Long.parseLong(tfId.getText()));
-        ruta.setNombre(tfNombre.getText());
-        ruta.setDistancia(tfDistancia.getText());
-        String timeString = tfDuracion.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        try {
-            java.util.Date parsedDate = sdf.parse(timeString);
-            Time time = new Time(parsedDate.getTime());
-            ruta.setDuracion(time);   
-            rutaService.guardarRuta(ruta);
-            cargarDatos();    
-        } catch (ParseException e) {
-            System.err.println("Error al parsear el tiempo: " + e.getMessage());
-        }
-    }
-
-    public void eliminarRuta(){
-        Ruta ruta = rutaService.busRutaPorId(Long.parseLong(tfId.getText()));
-        rutaService.eliminarRuta(ruta);
-        cargarDatos();
-            ruta.setDuracion(time);
-            rutaService.guardarRuta(ruta);
-            cargarDatos();
-            borrarTextField();
-            alerta.mostrarAlertInfo(123); // Registro completado
-        } catch (ParseException e) {
-            alerta.mostrarAlertInfo(341); // Campos faltantes
-            System.err.println("Error al parsear el tiempo: " + e.getMessage());
-        } catch (Exception e) {
-            alerta.mostrarAlertInfo(341); // Error inesperado
         }
     }
 
@@ -215,27 +180,26 @@ public class RutaFXController implements Initializable {
             } else {
                 System.out.println("Ruta no encontrada");
                 cargarDatos();
-            try {
-                Long id = Long.parseLong(tfBuscar.getText());
-                Ruta ruta = rutaService.busRutaPorId(id);
-                if (ruta != null) {
-                    ObservableList<Ruta> rutaEncontrada = FXCollections.observableArrayList(ruta);
-                    tblRutas.setItems(rutaEncontrada);
-                    alerta.mostrarAlertInfo(123); // Ruta encontrada
-                } else {
-                    alerta.mostrarAlertInfo(341); // Ruta no encontrada
-                    System.out.println("Ruta no encontrada");
-                    cargarDatos();
+                try {
+                    Long id = Long.parseLong(tfBuscar.getText());
+                    Ruta ruta = rutaService.busRutaPorId(id);
+                    if (ruta != null) {
+                        ObservableList<Ruta> rutaEncontrada = FXCollections.observableArrayList(ruta);
+                        tblRutas.setItems(rutaEncontrada);
+                        alerta.mostrarAlertInfo(123); // Ruta encontrada
+                    } else {
+                        alerta.mostrarAlertInfo(341); // Ruta no encontrada
+                        System.out.println("Ruta no encontrada");
+                        cargarDatos();
+                    }
+                } catch (NumberFormatException e) {
+                    alerta.mostrarAlertInfo(341); // ID inválido
+                    System.err.println("El ID ingresado no es válido: " + e.getMessage());
+                } catch (Exception e) {
+                    alerta.mostrarAlertInfo(341); // Error inesperado
                 }
-            } catch (NumberFormatException e) {
-                alerta.mostrarAlertInfo(341); // ID inválido
-                System.err.println("El ID ingresado no es válido: " + e.getMessage());
-            } catch (Exception e) {
-                alerta.mostrarAlertInfo(341); // Error inesperado
             }
-        } else {
-            cargarDatos();
+    
         }
     }
-    
 }
