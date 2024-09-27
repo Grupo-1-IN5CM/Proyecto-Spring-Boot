@@ -13,10 +13,9 @@ import com.agenciaviajes.webapp.agenciaViajes.model.Viajero;
 import com.agenciaviajes.webapp.agenciaViajes.service.ItinerarioService;
 import com.agenciaviajes.webapp.agenciaViajes.service.ViajeroService;
 import com.agenciaviajes.webapp.agenciaViajes.system.Main;
-<<<<<<< HEAD
-=======
+
 import com.agenciaviajes.webapp.agenciaViajes.utils.Alerta;
->>>>>>> Giovanni-Carrera
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,11 +56,10 @@ public class ViajeroFXController implements  Initializable{
     @Autowired
     ItinerarioService itinerarioService;
 
-<<<<<<< HEAD
-=======
+
     @Autowired
     Alerta alerta;
->>>>>>> Giovanni-Carrera
+
     @Override
     public void initialize(URL url, ResourceBundle resources) {
        cargarDatos();
@@ -138,14 +136,12 @@ public class ViajeroFXController implements  Initializable{
             viajero.setCorreo(tfCorreo.getText());
             viajero.setTelefono(tfTelefono.getText());
             viajero.setFechaRegistro(Date.valueOf(tfReg.getText()));
-<<<<<<< HEAD
             viajero.setItinerario((Itinerario) cmbItinerario.getSelectionModel().getSelectedItem());
             viajeroService.guardarViajero(viajero);
             cargarDatos(); 
             borrarTextField();
         } catch (IllegalArgumentException e) {
             System.out.println("Error en los datos ingresados: " + e.getMessage());
-=======
             viajero.setItinerario((Itinerario)cmbItinerario.getSelectionModel().getSelectedItem());
             viajeroService.guardarViajero(viajero);
             cargarDatos();
@@ -157,7 +153,6 @@ public class ViajeroFXController implements  Initializable{
         } catch (Exception e) {
             alerta.mostrarAlertInfo(341); // Error inesperado
             System.err.println("Error inesperado al agregar viajero: " + e.getMessage());
->>>>>>> Giovanni-Carrera
         }
     }
 
@@ -169,7 +164,6 @@ public class ViajeroFXController implements  Initializable{
             viajero.setCorreo(tfCorreo.getText());
             viajero.setTelefono(tfTelefono.getText());
             viajero.setFechaRegistro(Date.valueOf(tfReg.getText()));
-<<<<<<< HEAD
             viajero.setItinerario((Itinerario) cmbItinerario.getSelectionModel().getSelectedItem());
             viajeroService.guardarViajero(viajero);
             cargarDatos();
@@ -186,7 +180,6 @@ public class ViajeroFXController implements  Initializable{
             cargarDatos();
             borrarTextField(); 
         } else {
-=======
             viajero.setItinerario((Itinerario)cmbItinerario.getSelectionModel().getSelectedItem());
             viajeroService.guardarViajero(viajero);
             cargarDatos();
@@ -207,7 +200,6 @@ public class ViajeroFXController implements  Initializable{
             alerta.mostrarAlertInfo(123); // Viajero eliminado exitosamente
         } else {
             alerta.mostrarAlertInfo(456); // Selecciona un viajero para eliminar
->>>>>>> Giovanni-Carrera
             System.out.println("Selecciona un viajero para eliminar.");
         }
     }
@@ -222,20 +214,15 @@ public class ViajeroFXController implements  Initializable{
                 if (viajero != null) {
                     tblViajero.getItems().clear();
                     tblViajero.setItems(FXCollections.observableArrayList(viajero));
-<<<<<<< HEAD
                 } else {
-=======
                     alerta.mostrarAlertInfo(123); // Viajero encontrado
                 } else {
                     alerta.mostrarAlertInfo(456); // Viajero no encontrado
->>>>>>> Giovanni-Carrera
                     System.out.println("Viajero no encontrado");
                     tblViajero.getItems().clear();
                 }
             } catch (NumberFormatException e) {
-<<<<<<< HEAD
                 System.out.println("ID inválido: " + e.getMessage());
-=======
                 alerta.mostrarAlertInfo(341); // ID inválido
                 System.out.println("ID inválido: " + e.getMessage());
             } catch (Exception e) {
