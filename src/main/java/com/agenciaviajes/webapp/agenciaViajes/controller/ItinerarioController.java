@@ -64,7 +64,6 @@ public class ItinerarioController {
             itinerario.setFecha(itinerarioNuevo.getFecha());
             itinerario.setHora(itinerarioNuevo.getHora());
             itinerario.setRuta(itinerarioNuevo.getRuta());
-            itinerario.setParada(itinerarioNuevo.getParada());
             itinerarioService.guardarItinerario(itinerario);
             response.put("message", "El viajero se ha modificado con exito");
             return ResponseEntity.ok(response);
