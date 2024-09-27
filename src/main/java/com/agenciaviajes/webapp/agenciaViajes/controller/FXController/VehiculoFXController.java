@@ -9,10 +9,9 @@ import org.springframework.stereotype.Component;
 import com.agenciaviajes.webapp.agenciaViajes.model.Vehiculo;
 import com.agenciaviajes.webapp.agenciaViajes.service.VehiculoService;
 import com.agenciaviajes.webapp.agenciaViajes.system.Main;
-<<<<<<< HEAD
-=======
+
 import com.agenciaviajes.webapp.agenciaViajes.utils.Alerta;
->>>>>>> Giovanni-Carrera
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,12 +45,10 @@ public class VehiculoFXController implements Initializable{
     @Autowired
     VehiculoService vehiculoService;
 
-<<<<<<< HEAD
-=======
+
     @Autowired
     Alerta alerta;
 
->>>>>>> Giovanni-Carrera
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         cargarDatos();
@@ -110,7 +107,7 @@ public class VehiculoFXController implements Initializable{
         return FXCollections.observableArrayList(vehiculoService.ListarVehiculo());
     }
 
-<<<<<<< HEAD
+
     public void agregarVehiculo(){
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setMarca(tfMarca.getText());
@@ -137,7 +134,7 @@ public class VehiculoFXController implements Initializable{
         Vehiculo vehiculo = vehiculoService.busVehiculoPorId(Long.parseLong(tfId.getText()));
         vehiculoService.eliminarVehiculo(vehiculo);
         cargarDatos();
-=======
+
     public void agregarVehiculo() {
         try {
             Vehiculo vehiculo = new Vehiculo();
@@ -197,12 +194,10 @@ public class VehiculoFXController implements Initializable{
         } catch (Exception e) {
             alerta.mostrarAlertInfo(341); // Error inesperado al eliminar
         }
->>>>>>> Giovanni-Carrera
     }
 
     public void buscarVehiculoPorId() {
         String idTexto = tfBuscar.getText();
-
         if (idTexto.isBlank()) {
             cargarDatos();
             return;
@@ -213,7 +208,7 @@ public class VehiculoFXController implements Initializable{
             if (vehiculo != null) {
                 tblVehiculos.getItems().clear();
                 ObservableList<Vehiculo> vehiculosEncontrados = FXCollections.observableArrayList(vehiculo);
-<<<<<<< HEAD
+
                 tblVehiculos.setItems(vehiculosEncontrados);   
                 tblVehiculos.getSelectionModel().select(vehiculo);
                 cargarTextField();
@@ -223,7 +218,6 @@ public class VehiculoFXController implements Initializable{
             }
         } catch (NumberFormatException e) {
             System.out.println("ID no válido.");
-=======
                 tblVehiculos.setItems(vehiculosEncontrados);
                 tblVehiculos.getSelectionModel().select(vehiculo);
                 cargarTextField();
@@ -238,7 +232,6 @@ public class VehiculoFXController implements Initializable{
             System.out.println("ID no válido.");
         } catch (Exception e) {
             alerta.mostrarAlertInfo(341); // Error inesperado al buscar
->>>>>>> Giovanni-Carrera
         }
     }        
 }
