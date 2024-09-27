@@ -21,10 +21,8 @@ public class Comentario {
     private Integer calificacion;
     private String comentario;
     private Date fecha;
-
     @ManyToOne
     private Oferta oferta;
-
     @ManyToOne
     private Viajero viajero;
 }
