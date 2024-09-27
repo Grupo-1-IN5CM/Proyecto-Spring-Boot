@@ -12,10 +12,9 @@ import org.springframework.stereotype.Component;
 import com.agenciaviajes.webapp.agenciaViajes.model.Parada;
 import com.agenciaviajes.webapp.agenciaViajes.service.ParadaService;
 import com.agenciaviajes.webapp.agenciaViajes.system.Main;
-<<<<<<< HEAD
-=======
+
 import com.agenciaviajes.webapp.agenciaViajes.utils.Alerta;
->>>>>>> Giovanni-Carrera
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,11 +47,10 @@ public class ParadaFXController implements Initializable{
 
     @Autowired
     ParadaService paradaService;
-<<<<<<< HEAD
-=======
+
      @Autowired
     Alerta alerta;
->>>>>>> Giovanni-Carrera
+
     
     @Override
     public void initialize(URL url, ResourceBundle resources) {
@@ -110,7 +108,6 @@ public class ParadaFXController implements Initializable{
         return FXCollections.observableArrayList(paradaService.ListarParada());
     }
 
-<<<<<<< HEAD
     public void agregarParada(){
         Parada parada = new Parada();
         parada.setNombre(tfNombre.getText());
@@ -151,7 +148,6 @@ public class ParadaFXController implements Initializable{
         Parada parada = paradaService.busParadaPorId(Long.parseLong(tfId.getText()));
         paradaService.eliminarParada(parada);
         cargarDatos();
-=======
     
     public void agregarParada() {
         Parada parada = new Parada();
@@ -223,7 +219,6 @@ public class ParadaFXController implements Initializable{
         } catch (Exception e) {
             alerta.mostrarAlertInfo(341); // Error inesperado
         }
->>>>>>> Giovanni-Carrera
     }
 
     public void buscarPorId() {
@@ -236,7 +231,6 @@ public class ParadaFXController implements Initializable{
                 if (parada != null) {
                     tblParadas.getItems().clear();
                     tblParadas.getItems().add(parada);
-<<<<<<< HEAD
                 } else {
                     System.out.println("No se encontró ninguna parada con el ID: " + id);
                 }
@@ -245,7 +239,7 @@ public class ParadaFXController implements Initializable{
             }
         }
     }    
-=======
+
                     alerta.mostrarAlertInfo(123); // Parada encontrada
                 } else {
                     alerta.mostrarAlertInfo(341); // No se encontró la parada
@@ -259,5 +253,4 @@ public class ParadaFXController implements Initializable{
             }
         }
     } 
->>>>>>> Giovanni-Carrera
 }
