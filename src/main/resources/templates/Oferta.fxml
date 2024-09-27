@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agenciaviajes.webapp.agenciaViajes.controller.FXController.OfertaFXController">
     
     <!-- Imagen adicional (pequeña) -->
     <children>
@@ -33,7 +33,7 @@
 
         <!-- Botón para eliminar oferta -->
         <Button fx:id="btnEliminar" layoutX="34.0" layoutY="666.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="101.0" style="-fx-background-color: #FF5555; -fx-text-fill: white; -fx-font-size: 18px;" text="Eliminar Oferta" />
-      <TableView fx:id="tblOfertas" layoutX="486.0" layoutY="221.0" prefHeight="430.0" prefWidth="597.0">
+      <TableView fx:id="tblOfertas" layoutX="486.0" layoutY="221.0" onMouseClicked="#cargarTextField" prefHeight="430.0" prefWidth="698.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="60.799957275390625" text="Id" />
           <TableColumn fx:id="colInicio" prefWidth="95.199951171875" text="Inicio" />
@@ -42,13 +42,15 @@
             <TableColumn fx:id="colTipo" prefWidth="78.39996337890625" text="Tipo " />
             <TableColumn fx:id="colVehiculo" prefWidth="92.00006103515625" text="Vehiculo" />
             <TableColumn fx:id="colViajero" prefWidth="100.0" text="Viajero" />
+            <TableColumn fx:id="colRuta" prefWidth="92.0" text="Ruta" />
         </columns>
       </TableView>
-      <ComboBox fx:id="cbmVehiculo" layoutX="508.0" layoutY="130.0" prefHeight="30.0" prefWidth="210.0" />
-      <ComboBox fx:id="cbmViajero" layoutX="785.0" layoutY="130.0" prefHeight="30.0" prefWidth="210.0" />
+      <ComboBox fx:id="cmbVehiculo" layoutX="508.0" layoutY="130.0" prefHeight="30.0" prefWidth="210.0" />
+      <ComboBox fx:id="cmbViajero" layoutX="785.0" layoutY="130.0" prefHeight="30.0" prefWidth="210.0" />
       <TextField fx:id="tfBuscar" layoutX="670.0" layoutY="676.0" prefHeight="38.0" prefWidth="329.0" />
       <Button fx:id="btnBuscar" layoutX="582.0" layoutY="668.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="52.0" prefWidth="82.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Crear Oferta" />
       <Button fx:id="btnReturn" layoutX="1032.0" layoutY="669.0" onAction="#handleButtonAction" opacity="0.0" prefHeight="67.0" prefWidth="101.0" style="-fx-background-color: #0A3A6E; -fx-text-fill: white; -fx-font-size: 18px;" text="Crear Oferta" />
+      <ComboBox fx:id="cmbRuta" layoutX="613.0" layoutY="180.0" prefHeight="30.0" prefWidth="281.0" promptText="Ruta" />
         
     </children>
 </AnchorPane>
