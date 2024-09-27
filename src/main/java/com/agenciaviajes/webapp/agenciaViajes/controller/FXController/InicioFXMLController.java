@@ -39,11 +39,7 @@ public class InicioFXMLController implements Initializable {
         }else if(event.getSource() == btnVehiculo){
             stage.vehiculoFXView();
         }else if(event.getSource() == btnOferta){
-<<<<<<< HEAD
             stage.ofertaFXView();
-=======
-            
->>>>>>> Giovanni-Carrera
         }else if(event.getSource() == btnComentario){
             //stage.comentarioView();
         }
