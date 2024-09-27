@@ -108,47 +108,6 @@ public class ParadaFXController implements Initializable{
         return FXCollections.observableArrayList(paradaService.ListarParada());
     }
 
-    public void agregarParada(){
-        Parada parada = new Parada();
-        parada.setNombre(tfNombre.getText());
-        parada.setUbicacion(tfUbicacion.getText());
-        parada.setTipoParada(tfTipoParada.getText());
-        String timeString = tfTiempo.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); 
-        cargarDatos();
-        try {
-            java.util.Date parsedDate = sdf.parse(timeString);
-            Time time = new Time(parsedDate.getTime());
-            parada.setTiempo(time);   
-            paradaService.guardarParada(parada);    
-        } catch (ParseException e) {
-            System.err.println("Error al parsear el tiempo: " + e.getMessage());
-        }
-    }
-
-    public void editarParada(){
-        Parada parada = paradaService.busParadaPorId(Long.parseLong(tfId.getText()));
-        parada.setNombre(tfNombre.getText());
-        parada.setUbicacion(tfUbicacion.getText());
-        String timeString = tfTiempo.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); 
-        parada.setTipoParada(tfTipoParada.getText());
-        try {
-            java.util.Date parsedDate = sdf.parse(timeString);
-            Time time = new Time(parsedDate.getTime());
-            parada.setTiempo(time);   
-            paradaService.guardarParada(parada);
-            cargarDatos();    
-        } catch (ParseException e) {
-            System.err.println("Error al parsear el tiempo: " + e.getMessage());
-        }
-    }
-
-    public void eliminarParada(){
-        Parada parada = paradaService.busParadaPorId(Long.parseLong(tfId.getText()));
-        paradaService.eliminarParada(parada);
-        cargarDatos();
-    
     public void agregarParada() {
         Parada parada = new Parada();
         try {
@@ -231,15 +190,6 @@ public class ParadaFXController implements Initializable{
                 if (parada != null) {
                     tblParadas.getItems().clear();
                     tblParadas.getItems().add(parada);
-                } else {
-                    System.out.println("No se encontró ninguna parada con el ID: " + id);
-                }
-            } catch (NumberFormatException e) {
-                System.err.println("El ID ingresado no es válido: " + e.getMessage());
-            }
-        }
-    }    
-
                     alerta.mostrarAlertInfo(123); // Parada encontrada
                 } else {
                     alerta.mostrarAlertInfo(341); // No se encontró la parada
